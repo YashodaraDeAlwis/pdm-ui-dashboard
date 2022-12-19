@@ -24,6 +24,11 @@ function initDataSeriesByTime(starttime, count) {
       data.push({
         x, y
       });
+
+       data.push({
+        x, y
+      });
+     
      
       lastTime = starttime
       starttime += TICKINTERVAL;
@@ -43,8 +48,30 @@ class ChartSample02 extends Component{
             couter: 3,
 
             series: [{
+                name:"Acceleratuon_x",
                 data: this.props.data.slice()
-              }],
+              },
+              {
+                name:"Acceleratuon_y",
+                data: this.props.data.slice()
+              },
+              {
+                name:"Acceleratuon_z",
+                data: this.props.data.slice()
+              },
+              {
+                name:"Gyroscope_x",
+                data: this.props.data.slice()
+              },
+              {
+                name:"Gyroscope_y",
+                data: this.props.data.slice()
+              },
+              {
+                name:"Gyroscope_z",
+                data: this.props.data.slice()
+              }
+            ],
               options: {
                 chart: {
                   id: 'realtime',
@@ -68,6 +95,7 @@ class ChartSample02 extends Component{
                 },
                 dataLabels: {
                   enabled: false
+                  
                 },
                 stroke: {
                   curve: 'smooth'
@@ -75,25 +103,32 @@ class ChartSample02 extends Component{
                 title: {
                   text: 'Dynamic Updating Chart',
                   align: 'left',
-                  color:'#c5d6d4',
+                  style: {
+                    color: 'white',
+                    fontSize: '12px'
+                  },
                   
                 },
+                
                 
                 
                 xaxis: {
                   type: 'numeric',
                   range: 10,
-                  color:'#c5d6d4',
-              
+                  
+            
                  
                 },
               
                 yaxis: {
-                  max: 1
+                  max: 1,
+                
+                  
                   
                 },
                 legend: {
-                  show: false
+                  show: false,
+                 
                 },
 
                 

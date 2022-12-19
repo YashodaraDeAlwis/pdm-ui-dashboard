@@ -33,8 +33,18 @@ const Widget =()=>{
     var server_count = 0 ;
     var previouse_server_count = 0;
     var x_acc_val = 0;
+    var y_acc_val = 0;
+    var z_acc_val = 0;
+    var x_gyro_val = 0;
+    var y_gyro_val = 0;
+    var z_gyro_val = 0;
     
     const[data_1, set_data_1] = useState(data)
+    const[data_2, set_data_2] = useState(data)
+    // const[data_1, set_data_1] = useState(data)
+    // const[data_1, set_data_1] = useState(data)
+    // const[data_1, set_data_1] = useState(data)
+    // const[data_1, set_data_1] = useState(data)
     const[counter, set_counter] = useState(0)
 
 
@@ -66,6 +76,36 @@ const Widget =()=>{
         
         
       } ;
+
+      
+    function getNewSeries2(starttime, x1_val) {
+        var newtime = starttime + 1;
+        lasttime = newtime
+        console.log("new updated is - ", newtime);
+      
+
+        for(var i = 0; i< data.length - 10; i++) {
+            console.log("data.length - ", data.length)
+          // IMPORTANT
+          // we reset the x and y of the data which is out of drawing area
+          // to prevent memory leaks
+          data[i].x = newtime - 1 - 10 ; //- XAXISRANGE - TICKINTERVAL
+        //   data[i].y = 0
+          
+        }
+        
+        
+       
+        data.push({
+          x: newtime,
+          y: x1_val
+        // y: Math.floor(Math.random() * (90 - 10 + 1)) + 10
+        });
+        
+        
+        
+      } ;
+
 
 
       function resetData(){
@@ -109,6 +149,27 @@ const Widget =()=>{
            x_acc_val = ((0 | (parseFloat(responseJson.acceleration_x) *10000)) /10000)
            server_count = responseJson.count
            console.log("x val is - ", x_acc_val)
+
+           y_acc_val = ((0 | (parseFloat(responseJson.acceleration_y) *10000)) /10000)
+           server_count = responseJson.count
+           console.log("x1 val is - ",  y_acc_val )
+   
+           z_acc_val = ((0 | (parseFloat(responseJson.acceleration_z) *10000)) /10000)
+           server_count = responseJson.count
+           console.log("x2 val is - ",  z_acc_val)
+   
+           x_gyro_val = ((0 | (parseFloat(responseJson.gyro_x) *10000)) /10000)
+           server_count = responseJson.count
+           console.log("x3 val is - ",  x_gyro_val)
+   
+           y_gyro_val = ((0 | (parseFloat(responseJson.gyro_y) *10000)) /10000)
+           server_count = responseJson.count
+           console.log("x4 val is - ",  y_gyro_val)
+   
+           z_gyro_val = ((0 | (parseFloat(responseJson.gyro_z) *10000)) /10000)
+           server_count = responseJson.count
+           console.log("x5 val is - ",z_gyro_val )
+   
    
           
        })
@@ -126,6 +187,8 @@ const Widget =()=>{
                 // console.log("x val is - ", x_acc_val)
                 getNewSeries(lasttime, x_acc_val);
                 set_data_1(data)
+                getNewSeries2(lasttime, y_acc_val);
+                set_data_2(data2)
                 previouse_server_count = server_count;
 
       
@@ -285,13 +348,21 @@ const Widget =()=>{
           </div>
            <div className="chart-info">
             <div className="topic-info">Realtime Graph</div>
+            <dev className="linechart">
             <ChartSample02 
                    
                    // series={this.state.series}
                    data={data_1}
+                   //data={data_2}
                    counter={counter}
                    width="500"/>
-  
+               {/* <ChartSample02 
+                   
+                   // series={this.state.series}
+                   data={data_2}
+                   counter={counter}
+                   width="500"/>   */}
+            </dev>
         </div> 
         </div>
   
@@ -350,5 +421,48 @@ var data = [
     }
 ]
 
+
+var data2 = [
+    {
+        "x": 2,
+        "y": 1
+    },
+    {
+        "x": 5,
+        "y": 0.4
+    },
+    {
+        "x": 6,
+        "y": 0.4
+    },
+    {
+        "x": 8,
+        "y": 0.6
+    },
+    {
+        "x": 10,
+        "y": 0.8
+    },
+    {
+        "x": 12,
+        "y": 0.9
+    },
+    {
+        "x": 7,
+        "y": 0.6
+    },
+    {
+        "x": 8,
+        "y": 0.7
+    },
+    {
+        "x": 9,
+        "y": 0.8
+    },
+    {
+        "x": 10,
+        "y": 0.9
+    }
+]
 
 
